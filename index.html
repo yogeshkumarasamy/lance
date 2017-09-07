@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JQUERY ANIMATE</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="mobile-header">
+        <div class="logo">logo</div>
+        <div class="fb">f</div>
+        <div class="twitter">t</div>
+        <div class="linkedin">l</div>
+    </div>
+    <div class="katcontainer">
+        <div class="box box1">1</div>
+        <div class="box box2">2</div>
+        <div class="box box3">3</div>
+        <div class="box box4">4</div>
+        <div class="box box5">5</div>
+        <div class="box box6">6</div>
+        <div class="box box7">7</div>
+        <div class="box box8">8</div>
+        <div class="box box9">9</div>
+    </div>
+    <!-- JQUERY CDN -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <!--     
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
+    <script>
+    $("document").ready(function() {
+    	var container = $(".katcontainer");
+    	var katbox = $(".box"); 
+    	function setContainer() {
+    		var hGutter = 200; //for setting clean space around container
+    		var vGutter = 30;
+    		// resizeContainer();
+    		var wWidth = $(window).width();
+    		var wHeight = $(window).height();
+    		var containerWidth = wWidth-(hGutter*2);
+    		var containerHeight = wHeight-(vGutter*2);
+    		var boxWidth = containerWidth/3;
+    		var boxHeight = containerHeight/3;
+    		container.width(containerWidth).height(containerHeight).css("margin-top",vGutter).css("margin-bottom",vGutter).css("margin-left",hGutter).css("margin-right",vGutter);
+    		katbox.css("flex-basis", boxWidth).height(boxHeight);
+    	}
+    	setContainer();
+    	var boxes = $(".box");
+    	$(".box").click(function(){
+    		var notThis = $(".box").not(this);
+    		var iam = $(this);
+    		$.data( iam, "fbasis", {
+			  current: $(this).css("flex-basis")
+			});
+    		console.log($.data( iam, "fbasis" ).current);
+    		$.each(notThis, function( index, value ) {  			
+		  		console.log(index,value);
+			});
+			notThis.animate({ "flex-basis": "1", "height": "0" }, 2000, function() {
+				notThis.hide();
+			});
+			iam.animate({"flex-basis":"100%", "height": "100%"}, 2000);
+
+    		//set animation direction
+    	});
+    	$(window).resize(function() {
+        	setContainer();
+    	});
+    });
+    </script>
+</body>
+
+</html>
